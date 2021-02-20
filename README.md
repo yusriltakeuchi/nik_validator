@@ -1,9 +1,10 @@
+
 # nik_validator
 
 NIK Validator is a package to converting Indonesian Identity Card Number into useful informations.
 You just call the function .parse and input NIK number in the parameter, then you will get the informations, without internet connection (offline)
 
-[![GitHub issues](https://img.shields.io/github/issues/yusriltakeuchi/nik_validator.svg)](https://github.com/yusriltakeuchi/nik_validator/issues/)&nbsp;  [![GitHub pull-requests](https://img.shields.io/github/issues-pr/yusriltakeuchi/nik_validator.svg)](https://GitHub.com/yusriltakeuchi/nik_validator/pull/)&nbsp; [![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/nik_validator/example)&nbsp; [![Star](https://img.shields.io/github/stars/yusriltakeuchi/nik_validator?style=social)](https://github.com/yusriltakeuchi/nik_validator/star)
+[![GitHub issues](https://img.shields.io/github/issues/yusriltakeuchi/nik_validator.svg)](https://github.com/yusriltakeuchi/nik_validator/issues/)&nbsp;  [![GitHub pull-requests](https://img.shields.io/github/issues-pr/yusriltakeuchi/nik_validator.svg)](https://GitHub.com/yusriltakeuchi/nik_validator/pull/)&nbsp; [![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/nik_validator/example)&nbsp; [![Star](https://img.shields.io/github/stars/yusriltakeuchi/nik_validator?style=social)](https://github.com/yusriltakeuchi/nik_validator/star)&nbsp; [![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/nik_validator)
 
 <img src="https://i.ibb.co/B4716Rt/IMG-20210220-184403.jpg" height="480px">
 
