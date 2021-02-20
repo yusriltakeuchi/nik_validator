@@ -46,7 +46,7 @@ class NIKValidator {
   String _getBornYear(int nikYear, int currentYear) => nikYear < currentYear ? "20${nikYear > 10 ? nikYear : '0' + nikYear.toString()}" : "19${nikYear > 10 ? nikYear : '0' + nikYear.toString()}";
 
   /// Get unique code in NIK
-  int _getUniqueCode(String nik) => int.parse(nik.substring(12, 16));
+  String _getUniqueCode(String nik) => nik.substring(12, 16);
 
   /// Get age from nik
   AgeDuration _getAge(DateTime bornDate, DateTime now) => Age.dateDifference(fromDate: bornDate, toDate: now, includeToDate: false);
@@ -127,14 +127,14 @@ class NIKValidator {
       String bornMonthFull = _getBornMonthFull(nik);
       String bornYear = _getBornYear(nikYear, currentYear);
 
-      int uniqueCode = _getUniqueCode(nik); 
+      String uniqueCode = _getUniqueCode(nik); 
       String zodiac = _getZodiac(nikDate, bornMonth, gender == "PEREMPUAN");
       AgeDuration age = _getAge(DateTime.parse("$bornYear-$bornMonthFull-$nikDateFull"), DateTime.now());
       AgeDuration nextBirthday = _getNextBirthday(DateTime.parse("$bornYear-$bornMonthFull-$nikDateFull"), DateTime.now());
 
       return NIKModel(
         nik: nik ?? " ",
-        uniqueCode: uniqueCode ?? 0,
+        uniqueCode: uniqueCode ?? " ",
         gender: gender ?? " ",
         bornDate: "$nikDateFull-$bornMonthFull-$bornYear" ?? " ",
         age: "${age.years} tahun, ${age.months} bulan, ${age.days} hari" ?? " ",

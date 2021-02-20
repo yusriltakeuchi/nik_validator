@@ -6,7 +6,7 @@ class NIKModel {
   String province;
   String city;
   String subdistrict;
-  int uniqueCode;
+  String uniqueCode;
   String postalCode;
   String age;
   int ageYear;
@@ -29,7 +29,7 @@ class NIKModel {
 
   factory NIKModel.empty() => NIKModel(
     nik: "NOT FOUND" ?? " ",
-    uniqueCode: 0,
+    uniqueCode: " ",
     gender: " ",
     bornDate: " ",
     age: " ",

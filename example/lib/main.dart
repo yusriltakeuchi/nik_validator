@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Kode Unik",
-              value: nikResult.uniqueCode.toString()
+              value: nikResult.uniqueCode
             ),
             Divider(color: Colors.black),
             _textWidgeT(
