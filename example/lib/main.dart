@@ -35,11 +35,11 @@ class _HomePageState extends State<HomePage> {
   final nikController = TextEditingController();
   NIKModel nikResult;
   
-  /// Validate NIK informations
+  ///Validate NIK informations
   void validate() async {
     if (nikController.text.isNotEmpty) {
       NIKModel result = await NIKValidator.instance.parse(nik: nikController.text);
-      /// use result.valid to check if the nik is valid
+      ///use result.valid to check if the nik is valid
       setState(() {
         nikResult = result;
       });

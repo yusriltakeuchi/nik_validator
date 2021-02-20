@@ -1,4 +1,3 @@
-
 class NIKModel {
   String nik;
   String gender;
@@ -16,32 +15,37 @@ class NIKModel {
   String zodiac;
   bool valid;
 
-  NIKModel({
-    this.nik, this.gender,
-    this.bornDate, this.province,
-    this.city, this.subdistrict,
-    this.uniqueCode, this.postalCode,
-    this.age, this.zodiac,
-    this.valid, this.ageYear, 
-    this.ageMonth, this.ageDay,
-    this.nextBirthday
-  });
+  NIKModel(
+      {this.nik,
+      this.gender,
+      this.bornDate,
+      this.province,
+      this.city,
+      this.subdistrict,
+      this.uniqueCode,
+      this.postalCode,
+      this.age,
+      this.zodiac,
+      this.valid,
+      this.ageYear,
+      this.ageMonth,
+      this.ageDay,
+      this.nextBirthday});
 
   factory NIKModel.empty() => NIKModel(
-    nik: "NOT FOUND" ?? " ",
-    uniqueCode: " ",
-    gender: " ",
-    bornDate: " ",
-    age: " ",
-    ageYear: 0,
-    ageMonth: 0,
-    ageDay: 0,
-    nextBirthday: " ",
-    zodiac: " ",
-    province: " ",
-    city: " ",
-    subdistrict: " ",
-    postalCode: " ",
-    valid:  false
-  );
+      nik: "NOT FOUND" ?? " ",
+      uniqueCode: " ",
+      gender: " ",
+      bornDate: " ",
+      age: " ",
+      ageYear: 0,
+      ageMonth: 0,
+      ageDay: 0,
+      nextBirthday: " ",
+      zodiac: " ",
+      province: " ",
+      city: " ",
+      subdistrict: " ",
+      postalCode: " ",
+      valid: false);
 }
