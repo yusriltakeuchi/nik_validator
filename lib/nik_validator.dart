@@ -18,7 +18,13 @@ class NIKValidator {
 
   /// Get date in NIK
   int _getNIKDate(String nik) => int.parse(nik.substring(6, 8));
-  String _getNIKDateFull(String nik) => int.parse(nik.substring(6, 8)) > 10 ? nik.substring(6, 8) : "0${nik.substring(6, 8)}"; 
+  String _getNIKDateFull(String nik, bool isWoman) {
+    int date = int.parse(nik.substring(6, 8));
+    if (isWoman) {
+      date -= 40;
+    }
+    return date > 10 ? date.toString() : "0$date";
+  } 
 
   /// Get subdistrict split postalcode
   List<String> _getSubdistrictPostalCode(String nik, Map<String, dynamic> location) => location['kecamatan'][nik.substring(0, 6)].toString().toUpperCase().split(" -- "); 
@@ -37,7 +43,7 @@ class NIKValidator {
   String _getBornMonthFull(String nik) => nik.substring(8, 10);
 
   /// Get born year
-  String _getBornYear(int nikYear, int currentYear) => nikYear < currentYear ? "20${nikYear.toString()}" : "19${nikYear.toString()}";
+  String _getBornYear(int nikYear, int currentYear) => nikYear < currentYear ? "20${nikYear > 10 ? nikYear : '0' + nikYear.toString()}" : "19${nikYear > 10 ? nikYear : '0' + nikYear.toString()}";
 
   /// Get unique code in NIK
   int _getUniqueCode(String nik) => int.parse(nik.substring(12, 16));
@@ -49,7 +55,11 @@ class NIKValidator {
   AgeDuration _getNextBirthday(DateTime bornDate, DateTime now) => Age.dateDifference(fromDate: now, toDate: bornDate);
 
   /// Get Zodiac from bornDate and bornMonth
-  String _getZodiac(int date, int month) {
+  String _getZodiac(int date, int month, bool isWoman) {
+
+    if (isWoman)
+      date -= 40;
+
     if ((month == 1 && date >= 20) || (month == 2 && date < 19))
       return "Aquarius";
 
@@ -103,7 +113,9 @@ class NIKValidator {
       int currentYear = _getCurrentYear();
       int nikYear = _getNIKYear(nik);
       int nikDate = _getNIKDate(nik);
-      String nikDateFull = _getNIKDateFull(nik);
+      String gender = _getGender(nikDate);
+
+      String nikDateFull = _getNIKDateFull(nik, gender == "PEREMPUAN");
 
       List<String> subdistrictPostalCode = _getSubdistrictPostalCode(nik, location);
       String province = _getProvince(nik, location);
@@ -111,13 +123,12 @@ class NIKValidator {
       String subdistrict = subdistrictPostalCode[0];
       String postalCode = subdistrictPostalCode[1];
 
-      String gender = _getGender(nikDate);
       int bornMonth = _getBornMonth(nik);
       String bornMonthFull = _getBornMonthFull(nik);
       String bornYear = _getBornYear(nikYear, currentYear);
 
       int uniqueCode = _getUniqueCode(nik); 
-      String zodiac = _getZodiac(nikDate, bornMonth);
+      String zodiac = _getZodiac(nikDate, bornMonth, gender == "PEREMPUAN");
       AgeDuration age = _getAge(DateTime.parse("$bornYear-$bornMonthFull-$nikDateFull"), DateTime.now());
       AgeDuration nextBirthday = _getNextBirthday(DateTime.parse("$bornYear-$bornMonthFull-$nikDateFull"), DateTime.now());
 
