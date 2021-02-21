@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nik_validator/model/nik_model.dart';
 import 'package:nik_validator/nik_validator.dart';
 
 void main() {

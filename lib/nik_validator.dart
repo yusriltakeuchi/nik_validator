@@ -1,11 +1,10 @@
 library nik_validator;
 
 import 'dart:convert';
-
-import 'package:age/age.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nik_validator/model/nik_model.dart';
 
+///NIKValidator class to convert Identity Card Informations into useful data
 class NIKValidator {
   ///Create instance class object
   static NIKValidator instance = NIKValidator();
@@ -59,12 +58,12 @@ class NIKValidator {
   String _getUniqueCode(String nik) => nik.substring(12, 16);
 
   ///Get age from nik
-  AgeDuration _getAge(DateTime bornDate, DateTime now) =>
-      Age.dateDifference(fromDate: bornDate, toDate: now, includeToDate: false);
+  AgeDuration _getAge(DateTime bornDate, DateTime now) => Age.instance
+      .dateDifference(fromDate: bornDate, toDate: now, includeToDate: false);
 
   ///Get next birthday
   AgeDuration _getNextBirthday(DateTime bornDate, DateTime now) =>
-      Age.dateDifference(fromDate: now, toDate: bornDate);
+      Age.instance.dateDifference(fromDate: now, toDate: bornDate);
 
   ///Get Zodiac from bornDate and bornMonth
   String _getZodiac(int date, int month, bool isWoman) {
@@ -179,4 +178,173 @@ class NIKValidator {
   Future<Map<String, dynamic>> _getLocationAsset() async =>
       jsonDecode(await rootBundle
           .loadString("packages/nik_validator/assets/wilayah.json"));
+}
+
+///Class for calculating age and next birthday,
+///i get this class from the package [age]
+class Age {
+  ///create instance for an age
+  static Age instance = Age();
+
+  ///_daysInMonth cost contains days per months; daysInMonth method to be used instead.
+  List<int> _daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  ///isLeapYear method
+  bool _isLeapYear(int year) =>
+      (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+
+  ///daysInMonth method
+  int _daysInMonth(int year, int month) =>
+      (month == DateTime.february && _isLeapYear(year))
+          ? 29
+          : _daysInMonths[month - 1];
+
+  ///Function to check different year, month and date from two datetime
+  AgeDuration dateDifference(
+      {@required DateTime fromDate,
+      @required DateTime toDate,
+      bool includeToDate = false}) {
+    ///Check if toDate to be included in the calculation
+    DateTime endDate = (includeToDate) ? toDate.add(Duration(days: 1)) : toDate;
+
+    int years = endDate.year - fromDate.year;
+    int months = 0;
+    int days = 0;
+
+    if (fromDate.month > endDate.month) {
+      years--;
+      months = (DateTime.monthsPerYear + endDate.month - fromDate.month);
+
+      if (fromDate.day > endDate.day) {
+        months--;
+        days = _daysInMonth(fromDate.year + years,
+                ((fromDate.month + months - 1) % DateTime.monthsPerYear) + 1) +
+            endDate.day -
+            fromDate.day;
+      } else {
+        days = endDate.day - fromDate.day;
+      }
+    } else if (endDate.month == fromDate.month) {
+      if (fromDate.day > endDate.day) {
+        years--;
+        months = DateTime.monthsPerYear - 1;
+        days = _daysInMonth(fromDate.year + years,
+                ((fromDate.month + months - 1) % DateTime.monthsPerYear) + 1) +
+            endDate.day -
+            fromDate.day;
+      } else {
+        days = endDate.day - fromDate.day;
+      }
+    } else {
+      months = (endDate.month - fromDate.month);
+
+      if (fromDate.day > endDate.day) {
+        months--;
+        days = _daysInMonth(fromDate.year + years, (fromDate.month + months)) +
+            endDate.day -
+            fromDate.day;
+      } else {
+        days = endDate.day - fromDate.day;
+      }
+    }
+
+    return AgeDuration(days: days, months: months, years: years);
+  }
+}
+
+///Storing age duration from the age class
+class AgeDuration {
+  ///Store age in days
+  int days;
+
+  ///Store age in month
+  int months;
+
+  ///Store age in year
+  int years;
+
+  AgeDuration({this.days = 0, this.months = 0, this.years = 0});
+}
+
+///NIKModel to store converting result
+class NIKModel {
+  ///Nik number
+  String nik;
+
+  ///Gender type
+  String gender;
+
+  ///birthday date
+  String bornDate;
+
+  ///Province of country
+  String province;
+
+  ///City where live
+  String city;
+
+  ///Subdistrict where live
+  String subdistrict;
+
+  ///Unique code from the last digit number in nik
+  String uniqueCode;
+
+  ///Postal code of the subdistrict
+  String postalCode;
+
+  ///Age with output year, month and date
+  String age;
+
+  ///Age in year
+  int ageYear;
+
+  ///Age in month
+  int ageMonth;
+
+  ///Age in day
+  int ageDay;
+
+  ///Next birthday counters count from now
+  String nextBirthday;
+
+  ///Zodiac by born date
+  String zodiac;
+
+  ///Check the nik number is valid or not
+  bool valid;
+
+  NIKModel(
+      {this.nik,
+      this.gender,
+      this.bornDate,
+      this.province,
+      this.city,
+      this.subdistrict,
+      this.uniqueCode,
+      this.postalCode,
+      this.age,
+      this.zodiac,
+      this.valid,
+      this.ageYear,
+      this.ageMonth,
+      this.ageDay,
+      this.nextBirthday});
+
+  ///Output when the nik number is not valid
+  factory NIKModel.empty() => NIKModel(
+      nik: "NOT FOUND" ?? " ",
+      uniqueCode: " ",
+      gender: " ",
+      bornDate: " ",
+      age: " ",
+      ageYear: 0,
+      ageMonth: 0,
+      ageDay: 0,
+      nextBirthday: " ",
+      zodiac: " ",
+      province: " ",
+      city: " ",
+      subdistrict: " ",
+      postalCode: " ",
+      valid: false);
 }
