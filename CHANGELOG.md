@@ -1,3 +1,8 @@
+## [1.1.0] - 2021-03-09
+
+* Migrating to null safety
+* Change RaisedButton to ElevatedButton in example
+
 ## [0.0.3] - 2021-02-21
 
 * Including Age Calculation Class and NIKModel to the same file

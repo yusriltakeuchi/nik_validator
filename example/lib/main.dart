@@ -32,7 +32,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final nikController = TextEditingController();
-  NIKModel nikResult;
+  NIKModel? nikResult;
   
   ///Validate NIK informations
   void validate() async {
@@ -89,57 +89,57 @@ class _HomePageState extends State<HomePage> {
 
             _textWidgeT(
               title: "NIK",
-              value: nikResult.nik
+              value: nikResult!.nik!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Kode Unik",
-              value: nikResult.uniqueCode
+              value: nikResult!.uniqueCode!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Jenis Kelamin",
-              value: nikResult.gender
+              value: nikResult!.gender!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Tanggal Lahir",
-              value: nikResult.bornDate
+              value: nikResult!.bornDate!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Usia",
-              value: nikResult.age
+              value: nikResult!.age!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Ulang Tahun",
-              value: nikResult.nextBirthday
+              value: nikResult!.nextBirthday!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Zodiak",
-              value: nikResult.zodiac
+              value: nikResult!.zodiac!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Provinsi",
-              value: nikResult.province
+              value: nikResult!.province!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Kota/Kabupaten",
-              value: nikResult.city
+              value: nikResult!.city!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Kecamatan",
-              value: nikResult.subdistrict
+              value: nikResult!.subdistrict!
             ),
             Divider(color: Colors.black),
             _textWidgeT(
               title: "Kode Pos",
-              value: nikResult.postalCode
+              value: nikResult!.postalCode!
             ),
           ],
         ),
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _textWidgeT({String title, String value}) {
+  Widget _textWidgeT({required String title, required String value}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
         ),
         SizedBox(height: 5),
         
-        nikResult != null && nikResult.valid == false
+        nikResult != null && nikResult!.valid == false
           ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -215,12 +215,14 @@ class _HomePageState extends State<HomePage> {
     double width = MediaQuery.of(context).size.width;
     return Container(
       width: width,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5)
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5)
+          ),
         ),
         onPressed: () => validate(),
-        color: Colors.blue,
         child: Text(
           "Validate NIK",
           style: TextStyle(
