@@ -22,7 +22,7 @@ class NIKValidator {
     if (isWoman) {
       date -= 40;
     }
-    return date > 10 ? date.toString() : "0$date";
+    return date > 9 ? date.toString() : "0$date";
   }
 
   ///Get subdistrict split postalcode
