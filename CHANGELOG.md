@@ -1,3 +1,7 @@
+## [1.1.1] - 2021-03-09
+
+* Fix : Bug when date is 10
+
 ## [1.1.0] - 2021-03-09
 
 * Migrating to null safety
