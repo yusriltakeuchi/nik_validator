@@ -50,8 +50,8 @@ class NIKValidator {
 
   ///Get born year
   String _getBornYear(int nikYear, int currentYear) => nikYear < currentYear
-      ? "20${nikYear > 10 ? nikYear : '0' + nikYear.toString()}"
-      : "19${nikYear > 10 ? nikYear : '0' + nikYear.toString()}";
+      ? "20${nikYear > 9 ? nikYear : '0' + nikYear.toString()}"
+      : "19${nikYear > 9 ? nikYear : '0' + nikYear.toString()}";
 
   ///Get unique code in NIK
   String _getUniqueCode(String nik) => nik.substring(12, 16);
