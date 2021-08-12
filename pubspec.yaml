@@ -1,6 +1,6 @@
 name: nik_validator
 description: NIK Validator is a package that functions to parse Identity Card information in Indonesia
-version: 1.1.1
+version: 1.1.2
 author: Yusril Rapsanjani<yuranicorp@gmail.com>
 homepage: https://github.com/yusriltakeuchi/nik_validator.git
 
